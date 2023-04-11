@@ -11,3 +11,11 @@ class Booking(BaseModel):
     end_datetime: datetime.datetime
 
 
+class User(BaseModel):
+    user_id: int
+    username: str = Field(max_length=12)
+
+class Room(BaseModel):
+    room_id: int
+    room_name: str = Field(max_length=12)
+    capacity: int
