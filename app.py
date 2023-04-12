@@ -16,7 +16,7 @@ if page == "users":
             # "user_id": user_id,
             "username": username
         }
-        submit_button = st.form_submit_button(label="送信")
+        submit_button = st.form_submit_button(label="ユーザー登録")
 
     if submit_button:
         # st.write("## 送信データ")
@@ -29,6 +29,7 @@ if page == "users":
         )
         if res.status_code == 200:
             st.success("ユーザー登録完了")
+        st.write(res)
         st.json(res.json())
 
 elif page == "rooms":
