@@ -1,25 +1,26 @@
-import datetime
+# import datetime
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
+# from pydantic import BaseModel, Field
 
-class Booking(BaseModel):
-    booking_id: int
-    user_id: int
-    room_id: int
-    booked_num: int
-    start_datetime: datetime.datetime
-    end_datetime: datetime.datetime
-
-
-class User(BaseModel):
-    user_id: int
-    username: str = Field(max_length=12)
+# スキーマに移行
+# class Booking(BaseModel):
+#     booking_id: int
+#     user_id: int
+#     room_id: int
+#     booked_num: int
+#     start_datetime: datetime.datetime
+#     end_datetime: datetime.datetime
 
 
-class Room(BaseModel):
-    room_id: int
-    room_name: str = Field(max_length=12)
-    capacity: int
+# class User(BaseModel):
+#     user_id: int
+#     username: str = Field(max_length=12)
+
+
+# class Room(BaseModel):
+#     room_id: int
+#     room_name: str = Field(max_length=12)
+#     capacity: int
 
 
 app = FastAPI()
