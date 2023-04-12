@@ -1,9 +1,8 @@
-# データベースの構造・中身
-
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 # database.pyからBaseを読み込む
 from .database import Base
 
+# SQLのデータ構造
 class User(Base):
     # テーブル名
     __tablename__ = "users"

@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 # from pydantic import BaseModel, Field
 
-# スキーマに移行
+# スキーマに移行のためコメントアウト
 # class Booking(BaseModel):
 #     booking_id: int
 #     user_id: int
