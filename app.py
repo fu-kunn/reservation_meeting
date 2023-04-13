@@ -29,25 +29,25 @@ if page == "users":
         )
         if res.status_code == 200:
             st.success("ユーザー登録完了")
-        st.write(res)
+        st.write(res.status_code)
         st.json(res.json())
 
 elif page == "rooms":
-    st.title("APIテスト 会議室")
+    st.title("会議室登録画面")
     # フォームの作成
     with st.form(key="room"):
-        room_id: int = random.randint(0, 10)
+        # room_id: int = random.randint(0, 10)
         room_name: str = st.text_input("会議室名", max_chars=12)
         capacity: int = st.number_input("定員", step=1)
         data = {
-            "room_id": room_id,
+            # "room_id": room_id,
             "room_name": room_name,
             "capacity": capacity
         }
-        submit_button = st.form_submit_button(label="送信")
+        submit_button = st.form_submit_button(label="会議室登録")
 
     if submit_button:
-        st.write("## 送信データ")
+        # st.write("## 送信データ")
         st.json(data)
         st.write("##  レスポンス結果")
         url = "http://127.0.0.1:8000/rooms"
@@ -55,10 +55,13 @@ elif page == "rooms":
             url,
             data=json.dumps(data)
         )
+        if res.status_code == 200:
+            st.success("会議室登録完了")
+        st.write(res.status_code)
         st.json(res.json())
 
 elif page == "bookings":
-    st.title("APIテスト 予約")
+    st.title("会議室予約")
 
     with st.form(key="booking"):
         booking_id: int = random.randint(0, 10)

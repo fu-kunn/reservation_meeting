@@ -38,7 +38,7 @@ def create_user(db: Session, user: schemas.User):
 
 # 会議室登録
 def create_room(db: Session, room: schemas.Room):
-    db_room = models.room(room_name=room.room_name, capacity=room.capacity)
+    db_room = models.Room(room_name=room.room_name, capacity=room.capacity)
     db.add(db_room)
     db.commit()
     db.refresh(db_room)
@@ -46,7 +46,7 @@ def create_room(db: Session, room: schemas.Room):
 
 # 予約登録
 def create_booking(db: Session, booking: schemas.Booking):
-    db_booking = models.booking(
+    db_booking = models.Booking(
         room_id = booking.room_id,
         user_id = booking.user_id,
         booked_num = booking.booked_num,
