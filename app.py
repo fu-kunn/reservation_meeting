@@ -3,6 +3,7 @@ import datetime
 import random
 import requests
 import json
+import pandas as pd
 
 page = st.sidebar.selectbox("Choose your page", ["users", "rooms", "bookings"])
 
@@ -87,6 +88,9 @@ elif page == "bookings":
         }
     st.write(rooms_dict)
 
+    st.write("### 会議室一覧")
+    df_rooms = pd.DataFrame(rooms)
+    st.table(df_rooms)
 
 
 
