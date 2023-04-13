@@ -90,6 +90,7 @@ elif page == "bookings":
 
     st.write("### 会議室一覧")
     df_rooms = pd.DataFrame(rooms)
+    df_rooms.columns = ["会議室名", "定員", "会議室ID"]
     st.table(df_rooms)
 
 
