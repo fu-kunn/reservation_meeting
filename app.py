@@ -66,12 +66,29 @@ elif page == "bookings":
     url_users = "http://127.0.0.1:8000/users"
     res = requests.get(url_users)
     users = res.json()
-    st.write(users)
+    # st.write(users)
     # ユーザー名をキー、ユーザーIDをバリュー
     users_dict = {}
     for user in users:
         users_dict[user["username"]] = user["user_id"]
-    st.write(users_dict)
+    # st.write(users_dict)
+
+    # 会議室一覧の取得
+    url_rooms = "http://127.0.0.1:8000/rooms"
+    res = requests.get(url_rooms)
+    rooms = res.json()
+    st.write(rooms)
+    # 会議室名をキー、会議室IDをバリュー
+    rooms_dict = {}
+    for room in rooms:
+        rooms_dict[room["room_name"]] = {
+            "room_id": room["room_id"],
+            "capacity": room["capacity"]
+        }
+    st.write(rooms_dict)
+
+
+
 
     with st.form(key="booking"):
         # booking_id: int = random.randint(0, 10)
