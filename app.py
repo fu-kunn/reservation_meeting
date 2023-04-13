@@ -62,9 +62,19 @@ elif page == "rooms":
 
 elif page == "bookings":
     st.title("会議室予約")
+    # ユーザー一覧を取得
+    url_users = "http://127.0.0.1:8000/users"
+    res = requests.get(url_users)
+    users = res.json()
+    st.write(users)
+    # ユーザー名をキー、ユーザーIDをバリュー
+    users_dict = {}
+    for user in users:
+        users_dict[user["username"]] = user["user_id"]
+    st.write(users_dict)
 
     with st.form(key="booking"):
-        booking_id: int = random.randint(0, 10)
+        # booking_id: int = random.randint(0, 10)
         user_id: int = random.randint(0, 10)
         room_id: int = random.randint(0, 10)
         booked_num: int = st.number_input("予約人数", step=1)
@@ -72,7 +82,7 @@ elif page == "bookings":
         start_time = st.time_input("開始時刻： ", value=datetime.time(hour=9, minute=0))
         end_time = st.time_input("終了時刻： ", value=datetime.time(hour=20, minute=0))
         data = {
-            "booking_id": booking_id,
+            # "booking_id": booking_id,
             "user_id": user_id,
             "room_id": room_id,
             "booked_num": booked_num,
