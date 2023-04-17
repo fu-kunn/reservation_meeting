@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 # 同じフォルダ内のmodel.pyとshemas.pyを呼び出している
 from . import models, schemas
+from fastapi import HTTPException
 
 
 # ユーザー一覧の取得
@@ -46,14 +47,29 @@ def create_room(db: Session, room: schemas.Room):
 
 # 予約登録
 def create_booking(db: Session, booking: schemas.Booking):
-    db_booking = models.Booking(
-        room_id = booking.room_id,
-        user_id = booking.user_id,
-        booked_num = booking.booked_num,
-        start_datetime = booking.start_datetime,
-        end_datetime = booking.end_datetime
-    )
-    db.add(db_booking)
-    db.commit()
-    db.refresh(db_booking)
-    return db_booking
+    """
+    重複の予約があるか確認
+    既存データ(models.Booking)：今回登録されたデータ(booking)
+    all()で重複があればリストで値を取得する→値がなければ重複がない（＝予約登録ができる）
+    """
+    db_booked = db.query(models.Booking).\
+        filter(models.Booking.room_id == booking.room_id).\
+        filter(models.Booking.end_datetime < booking.start_datetime).\
+        filter(models.Booking.start_datetime > booking.end_datetime).\
+        all()
+
+    # 重複がない場合予約できる
+    if len(db_booked) == 0:
+        db_booking = models.Booking(
+            room_id = booking.room_id,
+            user_id = booking.user_id,
+            booked_num = booking.booked_num,
+            start_datetime = booking.start_datetime,
+            end_datetime = booking.end_datetime
+        )
+        db.add(db_booking)
+        db.commit()
+        db.refresh(db_booking)
+        return db_booking
+    else:
+        raise HTTPException(status_code=404, detail="Already booked")
