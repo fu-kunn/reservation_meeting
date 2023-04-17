@@ -93,6 +93,13 @@ elif page == "bookings":
     df_rooms.columns = ["会議室名", "定員", "会議室ID"]
     st.table(df_rooms)
 
+    # 予約一覧
+    url_bookings = "http://127.0.0.1:8000/bookings"
+    res = requests.get(url_bookings)
+    bookings = res.json()
+    df_bookings = pd.DataFrame(bookings)
+    st.write("### 予約一覧" )
+    st.table(df_bookings)
 
     with st.form(key="booking"):
         # booking_id: int = random.randint(0, 10)
