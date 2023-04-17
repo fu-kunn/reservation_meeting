@@ -54,8 +54,8 @@ def create_booking(db: Session, booking: schemas.Booking):
     """
     db_booked = db.query(models.Booking).\
         filter(models.Booking.room_id == booking.room_id).\
-        filter(models.Booking.end_datetime < booking.start_datetime).\
-        filter(models.Booking.start_datetime > booking.end_datetime).\
+        filter(models.Booking.end_datetime > booking.start_datetime).\
+        filter(models.Booking.start_datetime < booking.end_datetime).\
         all()
 
     # 重複がない場合予約できる
