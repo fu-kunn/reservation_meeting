@@ -7,6 +7,7 @@ import pandas as pd
 
 page = st.sidebar.selectbox("Choose your page", ["users", "rooms", "bookings"])
 
+# ユーザーページ
 if page == "users":
     st.title("ユーザー登録画面")
     # フォームの作成
@@ -17,6 +18,7 @@ if page == "users":
             # "user_id": user_id,
             "username": username
         }
+        # フォーム専用のボタン
         submit_button = st.form_submit_button(label="ユーザー登録")
 
     if submit_button:
@@ -33,6 +35,7 @@ if page == "users":
         st.write(res.status_code)
         st.json(res.json())
 
+# 会議室登録ページ
 elif page == "rooms":
     st.title("会議室登録画面")
     # フォームの作成
@@ -61,6 +64,7 @@ elif page == "rooms":
         st.write(res.status_code)
         st.json(res.json())
 
+# 会議室予約ページ
 elif page == "bookings":
     st.title("会議室予約")
     # ユーザー一覧を取得

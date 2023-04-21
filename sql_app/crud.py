@@ -4,12 +4,12 @@ from . import models, schemas
 from fastapi import HTTPException
 
 
-# ユーザー一覧の取得
 """
 db: Session →必要なんだなぐらいに思っておく
 skip: int = 0→ユーザー一覧を取得するときに上位何件をスキップするのか（今回は上位から全て取得）
 limit: int = 100 →最大で100件取得する
 """
+# ユーザー一覧の取得
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
 
@@ -22,11 +22,11 @@ def get_bookings(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Booking).offset(skip).limit(limit).all()
 
 
-# ユーザー登録
 """
 受け取るuser引数のデータ構造はFast API側の構造になる必要がある
 ユーザーを作成する構造はSQL
 """
+# ユーザー登録
 def create_user(db: Session, user: schemas.User):
     # 主キーは自動的に決まるものなのでユーザー名を取り出す
     db_user = models.User(username=user.username)

@@ -45,12 +45,13 @@ def get_db():
 # async def index():
 #     return {"message": "Succes"}
 
-# Read
+
 """
 List[]を使うことで複数のユーザー情報を取得できる
 schemas.Userは1つのユーザー情報
 db: Session = Depends(get_db)→get_db()関数で取得したセッションをdbに入れている
 """
+# Read
 @app.get("/users", response_model=List[schemas.User])
 async def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
