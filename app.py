@@ -201,4 +201,5 @@ elif page == "bookings":
             elif res.status_code == 404 and res.json()["detail"] == "Already booked":
                 st.error("指定の時間には既に予約が入っています。")
 
+
             # st.json(res.json())
